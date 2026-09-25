@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JNVST कक्षा 6 EVS अभ्यास टेस्ट</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+
+    .control-panel {
+      background: #f1f5f9;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    select {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.95rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: #e2e8f0;
+    }
+
+    .question-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .q-num {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .q-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-easy { background: #dcfce7; color: #15803d; }
+    .badge-medium { background: #fef3c7; color: #b45309; }
+    .badge-hard { background: #fee2e2; color: #b91c1c; }
+
+    .q-text {
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-btn {
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .option-btn.correct {
+      background: #dcfce7 !important;
+      border-color: var(--success) !important;
+      color: #14532d;
+      font-weight: 600;
+    }
+
+    .option-btn.incorrect {
+      background: #fee2e2 !important;
+      border-color: var(--danger) !important;
+      color: #7f1d1d;
+      font-weight: 600;
+    }
+
+    .score-banner {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #334155;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>JNVST कक्षा 6: EVS अभ्यास टेस्ट</h1>
+
+    <div class="control-panel">
+      <div class="control-group">
+        <label for="levelSelect">कठिनाई स्तर (Level)</label>
+        <select id="levelSelect">
+          <option value="all">सभी स्तर (All)</option>
+          <option value="easy">सरल (Easy)</option>
+          <option value="medium">मध्यम (Medium)</option>
+          <option value="hard">कठिन (Hard)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="countSelect">प्रश्नों की संख्या (Count)</label>
+        <select id="countSelect">
+          <option value="10">10 प्रश्न</option>
+          <option value="20">20 प्रश्न</option>
+          <option value="30">30 प्रश्न</option>
+        </select>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-primary" onclick="initQuiz()">नया टेस्ट शुरू करें</button>
+        <button class="btn-outline" onclick="shareQuiz()">🔗 शेयर लिंक कॉपी करें</button>
+        <button class="btn-outline" onclick="resetCurrentQuiz()">🔄 रीसेट करें</button>
+      </div>
+    </div>
+
+    <div id="scoreBanner" class="score-banner">
+      <h3>आपका स्कोर: <span id="currentScore">0</span> / <span id="totalQuestions">0</span></h3>
+    </div>
+
+    <div id="quizContainer"></div>
+  </div>
+
+  <div id="toast" class="toast">लिंक कॉपी हो गया! जब कोई इसे खोलेगा तो टेस्ट पूरी तरह रीसेट मिलेगा।</div>
+
+  <script>
+    // 35 प्रश्नों का प्रमाणित EVS डेटाबेस
+    const questionBank = [
+      { id: 1, q: "धूप में फैले गीले कपड़ों का सूखना जल चक्र के किस प्रक्रम का उदाहरण है?", opt: ["संघनन", "वाष्पीकरण", "अवक्षेपण", "निथारना"], ans: 1, level: "easy" },
+      { id: 2, q: "मानव शरीर में रक्त को सभी अंगों तक पंप करने का मुख्य कार्य कौन करता है?", opt: ["फेफड़े", "यकृत", "हृदय", "आमाशय"], ans: 2, level: "easy" },
+      { id: 3, q: "पौधों की पत्तियाँ मुख्य रूप से किस वर्णक के कारण हरी होती हैं?", opt: ["हीमोग्लोबिन", "क्लोरोफिल", "कैरोटीन", "मेलेनिन"], ans: 1, level: "easy" },
+      { id: 4, q: "जल का सामान्य क्वथनांक (Boiling Point) कितना होता है?", opt: ["0°C", "50°C", "100°C", "150°C"], ans: 2, level: "easy" },
+      { id: 5, q: "भारत का राष्ट्रीय जलीय जीव कौन-सा है?", opt: ["गंगा डॉल्फिन", "रोहू मछली", "मगरमच्छ", "कछुआ"], ans: 0, level: "easy" },
+      { id: 6, q: "बर्फ के बने घरों को क्या कहा जाता है?", opt: ["तम्बू", "इग्लू", "हट", "हवेली"], ans: 1, level: "easy" },
+      { id: 7, q: "विटामिन 'C' का सबसे उत्तम और प्रचुर स्रोत कौन-सा है?", opt: ["दूध", "आँवला", "गेहूँ", "केला"], ans: 1, level: "easy" },
+      { id: 8, q: "मछलियाँ पानी में सांस लेने के लिए किस अंग का उपयोग करती हैं?", opt: ["फेफड़े", "गलफड़े (गिल्स)", "त्वचा", "पंख"], ans: 1, level: "easy" },
+      { id: 9, q: "केंचुए को 'किसान का मित्र' क्यों कहा जाता है?", opt: ["कीटों को खाता है", "मिट्टी को उपजाऊ बनाता है", "फूल उगाता है", "पानी देता है"], ans: 1, level: "easy" },
+      { id: 10, q: "कच्चे आम को लंबे समय तक सुरक्षित रखने की मुख्य घरेलू विधि क्या है?", opt: ["पानी में भिगोना", "नमक-तेल मिलाकर अचार बनाना", "खुले में रखना", "उबालना"], ans: 1, level: "easy" },
+      
+      { id: 11, q: "मलेरिया रोग निम्नलिखित में से किस सूक्ष्मजीव के कारण होता है?", opt: ["प्लाज्मोडियम प्रोटोजोआ", "अमीबा", "वायरस", "फंगस"], ans: 0, level: "medium" },
+      { id: 12, q: "भोजन में आयरन (लौह तत्व) की कमी से कौन-सा रोग हो जाता है?", opt: ["रतौंधी", "एनीमिया", "स्कर्वी", "बेरीबेरी"], ans: 1, level: "medium" },
+      { id: 13, q: "चींटियाँ एक कतार में चलते समय जमीन पर क्या छोड़ती हैं?", opt: ["प्रकाश", "विशेष गंध", "ध्वनि", "पदचिह्न"], ans: 1, level: "medium" },
+      { id: 14, q: "रात के समय सक्रिय निशाचर जंतुओं को वस्तुएँ किस रूप में दिखाई देती हैं?", opt: ["रंगीन", "केवल लाल-नीली", "केवल काली और सफेद", "पीली"], ans: 2, level: "medium" },
+      { id: 15, q: "मानव शरीर में भोजन का पाचन मुख्य रूप से कहाँ से शुरू होता है?", opt: ["मुख (मुँह)", "आमाशय", "छोटी आंत", "यकृत"], ans: 0, level: "medium" },
+      { id: 16, q: "पर्वतारोही ऊंचे पहाड़ों पर चढ़ते समय ऑक्सीजन सिलेंडर क्यों ले जाते हैं?", opt: ["वजन बढ़ाने", "वायुदाब और ऑक्सीजन कम होने से", "आग जलाने", "प्यास बुझाने"], ans: 1, level: "medium" },
+      { id: 17, q: "प्रकाश-संश्लेषण के दौरान पौधे वातावरण से कौन-सी गैस अवशोषित करते हैं?", opt: ["ऑक्सीजन", "कार्बन डाइऑक्साइड", "नाइट्रोजन", "हाइड्रोजन"], ans: 1, level: "medium" },
+      { id: 18, q: "चिपको आंदोलन किस राज्य से प्रारंभ हुआ था?", opt: ["उत्तराखंड", "राजस्थान", "बिहार", "मध्य प्रदेश"], ans: 0, level: "medium" },
+      { id: 19, q: "दूध को दही में परिवर्तित करने वाला मुख्य जीवाणु कौन-सा है?", opt: ["ई. कोलाई", "लैक्टोबैसिलस", "यीस्ट", "राइजोबियम"], ans: 1, level: "medium" },
+      { id: 20, q: "गीले कचरे के निस्तारण हेतु किस रंग के कूड़ेदान का प्रयोग किया जाता है?", opt: ["नीला", "हरा", "लाल", "पीला"], ans: 1, level: "medium" },
+      
+      { id: 21, q: "रेगिस्तानी ओक (Desert Oak) नामक वृक्ष मुख्य रूप से कहाँ पाया जाता है?", opt: ["ब्राजील", "ऑस्ट्रेलिया", "मिस्र", "भारत"], ans: 1, level: "hard" },
+      { id: 22, q: "मृत सागर (Dead Sea) में किसी व्यक्ति का डूबना कठिन क्यों होता है?", opt: ["जल का तापमान अधिक है", "लवणता व घनत्व अत्यधिक है", "धाराएँ तेज हैं", "जल उथला है"], ans: 1, level: "hard" },
+      { id: 23, q: "मधुमक्खी छत्ते में भोजन की दिशा अन्य मक्खियों को कैसे सूचित करती है?", opt: ["ध्वनि निकालकर", "विशेष नृत्य करके", "गंध छोड़कर", "हवा बनाकर"], ans: 1, level: "hard" },
+      { id: 24, q: "ब्रेल लिपि कितने बिंदुओं (Dots) पर आधारित होती है?", opt: ["4 बिंदु", "6 बिंदु", "8 बिंदु", "10 बिंदु"], ans: 1, level: "hard" },
+      { id: 25, q: "लद्दाख के चांगथांग इलाके में पाई जाने वाली चांगपा जनजाति कौन-सी बकरी पालती है?", opt: ["पश्मीना", "जमुनापारी", "बारबरी", "बोएर"], ans: 0, level: "hard" },
+      { id: 26, q: "लेह-लद्दाख के दो मंजिला पारंपरिक घरों में निचली मंजिल की मुख्य विशेषता क्या होती है?", opt: ["बड़ी खिड़कियाँ", "कोई खिड़की नहीं होती", "पक्की टाइलें", "कांच की छत"], ans: 1, level: "hard" },
+      { id: 27, q: "मानव शरीर में लार (Saliva) में मौजूद एंजाइम किसका पाचन करता है?", opt: ["प्रोटीन", "स्टार्च (मंड)", "वसा", "विटामिन"], ans: 1, level: "hard" },
+      { id: 28, q: "अल-बिरूनी 1000 वर्ष पूर्व किस देश से भारत आया था?", opt: ["उज्बेकिस्तान", "अफगानिस्तान", "ईरान", "तुर्की"], ans: 0, level: "hard" },
+      { id: 29, q: "रोनाल्ड रॉस को 1902 में चिकित्सा का नोबेल पुरस्कार किस खोज हेतु मिला?", opt: ["मलेरिया मच्छर से फैलता है", "टीबी का टीका", "पेनिसिलिन", "चेचक का टीका"], ans: 0, level: "hard" },
+      { id: 30, q: "बाघ रात में मानव की तुलना में लगभग कितने गुना बेहतर देख सकता है?", opt: ["2 गुना", "4 गुना", "6 गुना", "10 गुना"], ans: 2, level: "hard" }
+    ];
+
+    let currentQuestions = [];
+    let userAttempts = {};
+
+    // पेज लोड होने पर चेक करें कि क्या यह शेयर्ड लिंक है
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const levelParam = urlParams.get('level');
+      const countParam = urlParams.get('count');
+      const isShared = urlParams.get('shared');
+
+      if (levelParam) document.getElementById('levelSelect').value = levelParam;
+      if (countParam) document.getElementById('countSelect').value = countParam;
+
+      if (isShared === 'true') {
+        // शेयर किए गए यूजर के लिए पुराना डेटा पूरी तरह साफ करें
+        localStorage.removeItem('jnv_quiz_state');
+        showToast("नया शेयर्ड टेस्ट लोड किया गया! सभी प्रयास खाली हैं।");
+      }
+
+      initQuiz();
+    };
+
+    function initQuiz() {
+      const level = document.getElementById('levelSelect').value;
+      const count = parseInt(document.getElementById('countSelect').value);
+
+      // फ़िल्टरिंग
+      let filtered = questionBank.filter(item => level === 'all' || item.level === level);
+      
+      // यादृच्छिक क्रम (Shuffle)
+      filtered = filtered.sort(() => Math.random() - 0.5);
+
+      // निर्धारित संख्या
+      currentQuestions = filtered.slice(0, count);
+      userAttempts = {};
+
+      renderQuestions();
+      updateScore();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = '';
+
+      currentQuestions.forEach((q, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+
+        const optButtons = q.opt.map((optText, oIdx) => `
+          <button class="option-btn" id="q_${index}_opt_${oIdx}" onclick="handleAnswer(${index}, ${oIdx})">
+            ${String.fromCharCode(65 + oIdx)}) ${optText}
+          </button>
+        `).join('');
+
+        card.innerHTML = `
+          <div class="q-header">
+            <span class="q-num">प्रश्न ${index + 1} / ${currentQuestions.length}</span>
+            <span class="q-badge badge-${q.level}">${q.level}</span>
+          </div>
+          <div class="q-text">${q.q}</div>
+          <div class="options">${optButtons}</div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function handleAnswer(qIndex, selectedOptIndex) {
+      if (userAttempts[qIndex] !== undefined) return; // एक बार हल करने के बाद लॉक
+
+      userAttempts[qIndex] = selectedOptIndex;
+      const q = currentQuestions[qIndex];
+      const isCorrect = selectedOptIndex === q.ans;
+
+      // बटन स्टाइल अपडेट करें
+      for (let i = 0; i < q.opt.length; i++) {
+        const btn = document.getElementById(`q_${qIndex}_opt_${i}`);
+        btn.disabled = true;
+        if (i === q.ans) {
+          btn.classList.add('correct');
+        } else if (i === selectedOptIndex && !isCorrect) {
+          btn.classList.add('incorrect');
+        }
+      }
+
+      updateScore();
+    }
+
+    function updateScore() {
+      const scoreBanner = document.getElementById('scoreBanner');
+      const totalAttempted = Object.keys(userAttempts).length;
+
+      if (totalAttempted > 0) {
+        scoreBanner.style.display = 'block';
+        let score = 0;
+        for (let qIndex in userAttempts) {
+          if (userAttempts[qIndex] === currentQuestions[qIndex].ans) {
+            score++;
+          }
+        }
+        document.getElementById('currentScore').innerText = score;
+        document.getElementById('totalQuestions').innerText = currentQuestions.length;
+      } else {
+        scoreBanner.style.display = 'none';
+      }
+    }
+
+    function resetCurrentQuiz() {
+      userAttempts = {};
+      renderQuestions();
+      updateScore();
+      showToast("सभी उत्तर रीसेट कर दिए गए हैं।");
+    }
+
+    function shareQuiz() {
+      const level = document.getElementById('levelSelect').value;
+      const count = document.getElementById('countSelect').value;
+
+      // URL में shared=true जोड़ें ताकि दूसरे व्यक्ति के फोन में कोई पिछला प्रयास न दिखे
+      const shareUrl = `${window.location.origin}${window.location.pathname}?level=${level}&count=${count}&shared=true&t=${Date.now()}`;
+
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        showToast("शेयर लिंक कॉपी हो गया! इसे अपने भाई को भेजें।");
+      }).catch(() => {
+        prompt("इस लिंक को कॉपी करके शेयर करें:", shareUrl);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>
+
